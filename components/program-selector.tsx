@@ -17,6 +17,8 @@ export default function ProgramSelector({ onSelectProgram }: Props) {
     onSelectProgram(p.id);
   };
 
+  const isCompleted = (p: Program) => p.status === "completed";
+
   return (
     <div className="min-h-screen bg-gym-bg">
       <div className="px-5 pt-12 pb-8">
@@ -41,6 +43,7 @@ export default function ProgramSelector({ onSelectProgram }: Props) {
         {programs.map((p) => {
           const isComingSoon = p.status === "coming-soon";
           const isActive = p.id === programId;
+          const done = isCompleted(p);
 
           return (
             <button
@@ -64,7 +67,12 @@ export default function ProgramSelector({ onSelectProgram }: Props) {
                         Coming Soon
                       </span>
                     )}
-                    {isActive && !isComingSoon && (
+                    {done && (
+                      <span className="text-[9px] uppercase tracking-wider bg-green-500/15 text-green-400 px-2 py-0.5 rounded-full font-bold">
+                        Completed
+                      </span>
+                    )}
+                    {isActive && !isComingSoon && !done && (
                       <span className="text-[9px] uppercase tracking-wider bg-gym-accent/20 text-gym-accent px-2 py-0.5 rounded-full font-bold">
                         Active
                       </span>
