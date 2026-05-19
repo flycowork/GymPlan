@@ -1,7 +1,6 @@
 "use client";
 
 import { Exercise } from "@/lib/program-data";
-import { useSetTracker } from "@/lib/hooks";
 import { Check } from "lucide-react";
 
 interface Props {
@@ -10,10 +9,11 @@ interface Props {
   dayId: string;
   week: number;
   blockType: "strength" | "conditioning" | "warmup" | "full";
+  isCompleted: (programId: string, dayId: string, name: string, setIndex: number, week: number) => boolean;
+  toggleSet: (programId: string, dayId: string, name: string, setIndex: number, week: number) => void;
 }
 
-export default function ExerciseCard({ exercise, programId, dayId, week, blockType }: Props) {
-  const { isCompleted, toggleSet } = useSetTracker();
+export default function ExerciseCard({ exercise, programId, dayId, week, blockType, isCompleted, toggleSet }: Props) {
   const numSets = parseInt(exercise.sets);
   const hasSets = !isNaN(numSets) && numSets > 0;
 

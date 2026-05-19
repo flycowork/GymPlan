@@ -21,7 +21,7 @@ const typeColors = {
 
 export default function WorkoutDayView({ day, programId, onBack }: Props) {
   const { week } = useCurrentWeek();
-  const { getCompletedCount, getTotalSets, resetDay } = useSetTracker();
+  const { isCompleted, toggleSet, getCompletedCount, getTotalSets, resetDay } = useSetTracker();
 
   const completedSets = getCompletedCount(programId, day.id, week);
   const totalSets = getTotalSets(day.id, day.blocks);
@@ -110,6 +110,8 @@ export default function WorkoutDayView({ day, programId, onBack }: Props) {
               dayId={day.id}
               week={week}
               blockType="warmup"
+              isCompleted={isCompleted}
+              toggleSet={toggleSet}
             />
           ))}
         </div>
@@ -144,6 +146,8 @@ export default function WorkoutDayView({ day, programId, onBack }: Props) {
                   dayId={day.id}
                   week={week}
                   blockType={block.type}
+                  isCompleted={isCompleted}
+                  toggleSet={toggleSet}
                 />
               ))}
             </div>
